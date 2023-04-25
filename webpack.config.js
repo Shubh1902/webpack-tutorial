@@ -9,6 +9,15 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: 3 * 1024, //3 kbs
+          },
+        },
+      },
+      {
+        test: /\.txt/,
+        type: "asset/source",
       },
     ],
   },
