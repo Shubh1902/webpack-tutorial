@@ -1,9 +1,20 @@
 const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: "./src/index.js",
-  output: { filename: "bundle.js", path: path.resolve(__dirname, "./dist"), publicPath: "dist/" },
-  mode: "none",
-
+  output: { filename: "bundle.js", path: path.resolve(__dirname, "./dist"), publicPath: "" },
+  mode: "development",
+  devServer: {
+    port: 9000,
+    static: {
+      directory: path.resolve(__dirname, "./dist"),
+    },
+    devMiddleware: {
+      index: "index.html",
+      writeToDisk: true,
+    },
+  },
   module: {
     rules: [
       {
@@ -40,4 +51,14 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: "Hello World",
+      filename: "index.html",
+      meta: {
+        description: "Hello World",
+      },
+    }),
+  ],
 };
